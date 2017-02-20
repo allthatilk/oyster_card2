@@ -21,4 +21,12 @@ describe OysterCard do
 			expect{card.top_up(10)}.to change{card.balance}.by 10
 		end 
 	end 
+	describe 'deductions from oyster card' do
+		it {is_expected.to respond_to(:deduct).with(1).argument}
+		 it 'should raise an error if balance is 0' do
+		 	card.deduct(card.balance-1)
+		 	error = "There is 0 balance on the card"
+		 	expect{card.deduct(1)}.to raise_error error 
+		 end
+	end
 end

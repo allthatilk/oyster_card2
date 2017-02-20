@@ -5,17 +5,27 @@ class OysterCard
 		@balance = balance
 	end
 		def top_up(amount)
-			 if limit_exceed(amount)  
+			 if max_balance_limit(amount)  
 			 	fail "Card Limit exceeded"
 			 else
 			 	@balance += amount
 			 end
 			 return @balance
 		end 
+		def deduct(amount)
+			
+			if  min_balance_limit(amount) 
+				fail "There is 0 balance on the card" 
+			else
+				@balance -= amount
+			end
+		end
 
-		def limit_exceed(amount)
+		def max_balance_limit(amount)
 			@balance + amount > MAXIMUM_BALANCE
-
+		end
+		def min_balance_limit(amount)
+			@balance - amount <= 0
 		end
 
 end
