@@ -1,12 +1,13 @@
 class OysterCard 
 	MINIMUM_AMOUNT = 1
 	MAXIMUM_BALANCE = 90
-	attr_reader :balance
+	attr_reader :balance, :entry_station
 	# attr_accessor :touch_in, :touch_out
 	def initialize(balance = 0)
 		@balance = balance
 		@touch_in = false
 		@touch_out = false
+
 	end
 		def top_up(amount)
 			 if max_balance_limit(amount)  
@@ -17,13 +18,16 @@ class OysterCard
 		@balance
 		end 
 
-		def in_journey?			
-			@touch_in
+		def in_journey?	
+			!!@entry_station		
+			# @touch_in
 		end
-		def touch_in?
+		def touch_in?(entry_station = nil)
 			if sufficiant_amount?
-				@touch_out = false
-				return @touch_in = true
+					@entry_station  = entry_station 					
+					@touch_out = false
+					return @touch_in = true
+				
 			else
 				raise "Card doesn't have sufficiant money"
 			end
@@ -31,6 +35,7 @@ class OysterCard
 		def touch_out?					
 			deduct(MINIMUM_AMOUNT)
 			@touch_in = false
+			@entry_station = nil
 			@touch_out = true
 		end
 		

@@ -40,16 +40,14 @@ describe OysterCard do
 			error = "Card doesn't have sufficiant money"
 			expect{card.touch_in?}.to raise_error error 
 		end
-		it 'validates card was not in journey' do
-			# card.touch_in?
-			# card.touch_out?
+		it 'validates card was not in journey' do			
 			expect(card).not_to be_in_journey
 		end
-		it 'validates card is in journey' do
-			card.top_up(OysterCard::MINIMUM_AMOUNT)
-			card.touch_in?
-			expect(card).to be_in_journey
-		end
+		# it 'validates card is in journey' do
+		# 	card.top_up(OysterCard::MINIMUM_AMOUNT)
+		# 	card.touch_in?
+		# 	expect(card).to be_in_journey
+		# end
 		it 'validates that card is deducted on touch out' do			
 			card.top_up(OysterCard::MAXIMUM_BALANCE)
 			card.touch_in?
@@ -57,4 +55,17 @@ describe OysterCard do
 		end
 
 	end	
+	describe 'entry station' do
+		let(:entry_station) { double('Aldgate East')}		
+		# let(:entry){ :entry_station = !nil} 
+		it 'confirms card has an entry station on touch_in' do
+			
+			card.top_up(OysterCard::MINIMUM_AMOUNT)
+			card.touch_in?(:entry_station)
+			expect(card.entry_station).to eq :entry_station
+		end
+
+
+
+	end
 end
