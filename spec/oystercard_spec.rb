@@ -2,7 +2,7 @@ require 'oyster_card'
 describe OysterCard do
  subject(:card){described_class.new}	
 
-	describe "attributes of oyster OysterCard" do
+	describe "attributes of OysterCard" do
      it "should check the balance" do
      	expect(card.balance).to eq(0)
      end
@@ -22,12 +22,13 @@ describe OysterCard do
 		end 
 	end 
 	describe 'deductions from oyster card' do
-		it {is_expected.to respond_to(:deduct).with(1).argument}
-		 it 'should raise an error if balance is 0' do
-		 	card.deduct(card.balance-1)
-		 	error = "There is 0 balance on the card"
-		 	expect{card.deduct(1)}.to raise_error error 
-		 end
+		
+		# it {is_expected.to respond_to(:deduct).with(1).argument}
+		#  it 'should raise an error if balance is 0' do
+		#  	card.deduct(card.balance-1)
+		#  	error = "There is 0 balance on the card"
+		#  	expect{card.deduct(1)}.to raise_error error 
+		#  end
 	end
 
 	describe 'in_journey' do
@@ -40,7 +41,8 @@ describe OysterCard do
 			expect{card.touch_in?}.to raise_error error 
 		end
 		it 'validates card was not in journey' do
-			card.touch_out?
+			# card.touch_in?
+			# card.touch_out?
 			expect(card).not_to be_in_journey
 		end
 		it 'validates card is in journey' do
@@ -48,5 +50,11 @@ describe OysterCard do
 			card.touch_in?
 			expect(card).to be_in_journey
 		end
+		it 'validates that card is deducted on touch out' do			
+			card.top_up(OysterCard::MAXIMUM_BALANCE)
+			card.touch_in?
+			expect{card.touch_out?}.to change{card.balance}.by(-OysterCard::MINIMUM_AMOUNT)
+		end
+
 	end	
 end

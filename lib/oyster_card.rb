@@ -16,14 +16,6 @@ class OysterCard
 			 end
 		@balance
 		end 
-		def deduct(amount)			
-			if  min_balance_limit(amount) 
-				fail "There is 0 balance on the card" 
-			else
-				@balance -= amount
-			end
-		@balance
-		end
 
 		def in_journey?			
 			@touch_in
@@ -36,9 +28,10 @@ class OysterCard
 				raise "Card doesn't have sufficiant money"
 			end
 		end
-		def touch_out?
-			@touch_out = true
+		def touch_out?					
+			deduct(MINIMUM_AMOUNT)
 			@touch_in = false
+			@touch_out = true
 		end
 		
 	private
@@ -53,4 +46,13 @@ class OysterCard
 	def sufficiant_amount?
 		@balance >= MINIMUM_AMOUNT
 	end
+
+	def deduct(amount)			
+		if  min_balance_limit(amount) 
+			fail "There is 0 balance on the card" 
+		else
+			@balance -= amount
+		end
+		@balance
+		end
 end
