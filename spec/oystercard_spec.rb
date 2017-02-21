@@ -29,4 +29,24 @@ describe OysterCard do
 		 	expect{card.deduct(1)}.to raise_error error 
 		 end
 	end
+
+	describe 'in_journey' do
+		it {should respond_to(:in_journey?)}
+		it {should respond_to(:touch_in?)}
+		it {should respond_to(:touch_out?)}
+		
+		it "validates that card has the min_amout for journey" do
+			error = "Card doesn't have sufficiant money"
+			expect{card.touch_in?}.to raise_error error 
+		end
+		it 'validates card was not in journey' do
+			card.touch_out?
+			expect(card).not_to be_in_journey
+		end
+		it 'validates card is in journey' do
+			card.top_up(OysterCard::MINIMUM_AMOUNT)
+			card.touch_in?
+			expect(card).to be_in_journey
+		end
+	end	
 end
