@@ -45,6 +45,8 @@ describe OysterCard do
 		end
 
 	end		#in_journey
+	
+
 	describe 'station' do
 		let(:entry_station) { :aldgate_east }
 		let(:ex_st) { double(:exit_station) }
@@ -59,6 +61,8 @@ describe OysterCard do
 			card.touch_out?(:ex_st)		
 			expect(card.exit_station).to eq :ex_st
 		end
+
+
 
 	end		#station
 	describe 'trips record' do
@@ -75,4 +79,9 @@ describe OysterCard do
 		
 	
 	end	# trips record
+
+	describe '#station class' do
+		it {is_expected.to respond_to(:name)}
+		it{is_expected.to respond_to(:zone)}
+	end	#station class
 end		#OysterCard
