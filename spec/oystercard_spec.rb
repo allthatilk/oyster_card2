@@ -20,7 +20,8 @@ describe OysterCard do
 			expect{card.top_up(OysterCard::MINIMUM_AMOUNT)}.to change{card.balance}.by OysterCard::MINIMUM_AMOUNT
 		end 
 	end 
-	describe 'deductions from oyster card' do
+	describe 'privious trips record' do
+		
 		
 	
 	end
