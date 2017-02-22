@@ -52,31 +52,13 @@ describe OysterCard do
 		let(:ex_st) { double(:exit_station) }
 		let(:balance){1}
 		it 'confirms card has an entry station on touch_in' do
-			# card.top_up(OysterCard::MINIMUM_AMOUNT)
-			card.touch_in?(:entry_station)
-			expect(card.entry_station).to eq :entry_station
+			expect(card.touch_in?(:entry_station)).to eq :entry_station
 		end
 		it 'confirms card has an exit station when touch_out' do
 			card.touch_in?(:entry_station)
-			card.touch_out?(:ex_st)
-			expect(card.exit_station).to eq :ex_st
+			expect(card.touch_out?(:ex_st)).to eq :ex_st
 		end
-
-
 
 	end		#station
-	describe 'trips record' do
-		let(:balance){1}
-		#let(:journey){ {} }
-		it 'should confirm it has empty list of journey' do
-			expect(card.list_of_journey).to eq []
-		end
-		it 'confirm touch_in & touch_out creates journey' do
-			card.touch_in?('entry')
-			card.touch_out?('exit')
-			expect(card.list_of_journey).to eq([{ entry:'entry', exit: 'exit'}])
-		end
-
-
-	end	# trips record
+	
 end		#OysterCard
