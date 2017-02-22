@@ -51,7 +51,7 @@ describe OysterCard do
 	describe 'station' do
 		let(:entry_station) { :aldgate_east }
 		let(:ex_st) { double(:exit_station) }
-		let(:balance){2}
+		let(:balance){1}
 		it 'confirms card has an entry station on touch_in' do			
 			# card.top_up(OysterCard::MINIMUM_AMOUNT)
 			card.touch_in?(:entry_station)
@@ -60,12 +60,12 @@ describe OysterCard do
 		it 'confirms card has an exit station when touch_out' do
 			card.touch_in?(:entry_station)
 			card.touch_out?(:ex_st)
-			card.touch_in?
+			#card.touch_in?
 			expect(card.exit_station).to eq :ex_st
 		end
-		it 'adsdasda' do
-			card.touch_in?(:entry_station)
-		end
+		# it 'adsdasda' do
+		# 	card.touch_in?(:entry_station)
+		# end
 
 
 

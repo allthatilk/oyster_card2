@@ -2,64 +2,32 @@ class OysterCard
 	MINIMUM_AMOUNT = 1
 	MAXIMUM_BALANCE = 90
 	attr_reader :balance, :entry_station, :exit_station
-	# attr_accessor :touch_in, :touch_out
 	def initialize(balance = 0)
 		@balance = balance
-		@touch_in = false
-		@touch_out = false
-
 	end
 		def top_up(amount)
-			 if max_balance_limit(amount)  
-			 	fail "Card Limit exceeded"
-			 else
-			 	@balance += amount
-			 end
-		@balance
+			fail "Card Limit exceeded" if @balance + amount > MAXIMUM_BALANCE  			
+			@balance += amount			 
 		end 
 
 		def in_journey?	
 			!!@entry_station		
-			# @touch_in
 		end
+
 		def touch_in?(entry_station = nil)
-			if sufficiant_amount?
-					@entry_station  = entry_station 					
-					@touch_out = false
-					return @touch_in = true
-				
-			else
-				raise "Card doesn't have sufficiant money"
-			end
+			
+			raise "Card doesn't have sufficiant money" if @balance < MINIMUM_AMOUNT
+			@entry_station  = entry_station 			
 		end
 		def touch_out?(station=nil)					
-			deduct(MINIMUM_AMOUNT)
-			@touch_in = false
+			deduct(MINIMUM_AMOUNT)			
 			@entry_station = nil
 			@exit_station = station
-			@touch_out = true
 		end
 		
-	private
+	private	
 
-	def max_balance_limit(amount)
-			@balance + amount > MAXIMUM_BALANCE
+	def deduct(amount)	
+			@balance -= amount		
 		end
-	
-	def min_balance_limit(amount)
-		@balance - amount <= 0
-	end
-	def sufficiant_amount?
-		@balance >= MINIMUM_AMOUNT
-	end
-
-	def deduct(amount)			
-		# if  min_balance_limit(amount) 
-		if @balance - amount < 0
-			fail "There is 0 balance on the card" 
-		else
-			@balance -= amount
-		end
-		@balance
-		end
-end
+end 	#OysterCard
