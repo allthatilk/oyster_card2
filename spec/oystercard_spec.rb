@@ -1,6 +1,8 @@
 require 'oyster_card'
 describe OysterCard do
- subject(:card){described_class.new}	
+ let(:balance) {0}
+ subject(:card){described_class.new(balance)}	
+
 
 	describe "attributes of OysterCard" do
      it "should check the balance" do
@@ -21,7 +23,7 @@ describe OysterCard do
 		end 
 	end 
 	describe 'privious trips record' do
-		
+
 		
 	
 	end
@@ -46,13 +48,25 @@ describe OysterCard do
 		end
 
 	end	
-	describe 'entry station' do
-		let(:entry_station) { double('Aldgate East')}				
+	describe 'station' do
+		let(:entry_station) { :aldgate_east }
+		let(:ex_st) { double(:exit_station) }
+		let(:balance){2}
 		it 'confirms card has an entry station on touch_in' do			
-			card.top_up(OysterCard::MINIMUM_AMOUNT)
+			# card.top_up(OysterCard::MINIMUM_AMOUNT)
 			card.touch_in?(:entry_station)
 			expect(card.entry_station).to eq :entry_station
 		end
+		it 'confirms card has an exit station when touch_out' do
+			card.touch_in?(:entry_station)
+			card.touch_out?(:ex_st)
+			card.touch_in?
+			expect(card.exit_station).to eq :ex_st
+		end
+		it 'adsdasda' do
+			card.touch_in?(:entry_station)
+		end
+
 
 
 
