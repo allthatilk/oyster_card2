@@ -4,28 +4,28 @@ class OysterCard
 	MAXIMUM_BALANCE = 90
 	attr_reader :balance
 	def initialize(balance = 0)
-		@balance = balance		
+		@balance = balance
 		@journey = Journey.new
-	end	
+	end
 
 		def top_up(amount)
 			fail "Card Limit exceeded" if @balance + amount > MAXIMUM_BALANCE
 			@balance += amount
 		end
 
-		def in_journey?#
-			@journey.in_journey? 
-		end#
+		def in_journey?
+			@journey.status?
+		end
 
 		def touch_in?(entry_station = nil)
-			raise "Card doesn't have sufficiant money" if @balance < MINIMUM_AMOUNT			
+			raise "Card doesn't have sufficiant money" if @balance < MINIMUM_AMOUNT
 			@journey.entry_station = entry_station
 		end
 
 		def touch_out?(station=nil)
-			deduct(MINIMUM_AMOUNT)			
+			deduct(MINIMUM_AMOUNT)
 			@journey.exit_station = station
-			@journey.journey_record			
+			@journey.journey_record
 			station
 		end
 
